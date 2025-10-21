@@ -1,0 +1,8 @@
+# Node modules
+node_modules/
+
+# Env file
+.env
+
+# Orders DB (optional, agar local hi rehna chahiye)
+orders-db.json
