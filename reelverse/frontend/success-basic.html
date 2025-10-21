@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reelverse — Payment Success (Basic)</title>
+  <style>
+    /* ==== Reset ==== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: #0c0c0c;
+      color: #e0e0e0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ==== Animated Background ==== */
+    body::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(#ffffff22 1px, transparent 1px) repeat;
+      background-size: 40px 40px;
+      animation: moveBg1 40s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200vw;
+      height: 200vh;
+      background: radial-gradient(#cccccc11 2px, transparent 3px) repeat;
+      background-size: 80px 80px;
+      animation: moveBg2 60s linear infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes moveBg1 { 0% { transform: translate(0,0); } 100% { transform: translate(-150px, -150px); } }
+    @keyframes moveBg2 { 0% { transform: translate(0,0); } 100% { transform: translate(150px, 150px); } }
+
+    /* ==== Box ==== */
+    .box {
+      background: #121212;
+      border-radius: 20px;
+      padding: 50px 40px;
+      max-width: 720px;
+      border: 1px solid #222;
+      box-shadow: 0 12px 50px rgba(0,0,0,0.85);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      text-align: center;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, #00f0ff 0%, #ff3ec1 60%, transparent 70%);
+      opacity: 0.12;
+      filter: blur(60px);
+      transition: opacity 0.5s ease;
+    }
+
+    .box:hover::before { opacity: 0.25; }
+
+    /* ==== Title ==== */
+    h1 {
+      font-size: 3rem;
+      color: #00f0ff;
+      margin-bottom: 20px;
+      text-shadow: 0 0 8px #00f0ff, 0 0 25px #ff3ec1;
+      position: relative;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      bottom: -8px;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, #00f0ff, #ff3ec1, #ff3ec1, #00f0ff);
+      border-radius: 2px;
+      animation: titleGlow 2.5s infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { opacity: 0.6; transform: translateX(-50%) scaleX(0.8); }
+      to { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
+    }
+
+    /* ==== Text ==== */
+    p {
+      font-size: 1.15rem;
+      color: #aaa;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    /* ==== Links ==== */
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .drive-btn {
+      position: relative;
+      background: #0c0c0c;
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .drive-btn:hover {
+      color: #0c0c0c;
+      background: linear-gradient(90deg, #00f0ff, #ff3ec1);
+      box-shadow: 0 10px 30px rgba(0,255,255,0.6), 0 5px 20px rgba(255,62,193,0.5);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .small {
+      color: #888;
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 800px) {
+      .box { padding: 40px 30px; width: 90%; }
+      h1 { font-size: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Payment Successful ✅</h1>
+    <p>Thank you for purchasing the <strong>Basic</strong> plan (₹499).</p>
+
+    <div id="links" class="links">
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1mmNWXU52geX9IDvSaky979kerUXYP26T" target="_blank">Open Drive Link 1</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1LljZEOq7pN3dPCHeTWSWZY0VsoNL-xO5" target="_blank">Open Drive Link 2</a>
+    </div>
+
+    <div class="small" id="paymentInfo">Checking payment info...</div>
+  </div>
+
+  <script>
+    function getQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return { payment_id: params.get('payment_id'), plan: params.get('plan') };
+    }
+    const q = getQuery();
+    const info = document.getElementById('paymentInfo');
+    if (q.payment_id) {
+      info.textContent = `Payment ID: ${q.payment_id} • Plan: ${q.plan || 'basic'}`;
+    } else {
+      info.textContent = 'No payment id found in URL.';
+    }
+  </script>
+</body>
+</html>
+  

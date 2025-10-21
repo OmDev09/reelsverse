@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reelverse — Payment Success (Advanced)</title>
+  <style>
+    /* ==== Override for success box ==== */
+    body {
+      padding: 60px 20px;
+    }
+
+    .box {
+      background: #121212;
+      border-radius: 20px;
+      padding: 40px 30px;
+      max-width: 720px;
+      border: 1px solid #222;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, #00f0ff 0%, #ff3ec1 60%, transparent 70%);
+      opacity: 0.12;
+      filter: blur(60px);
+      transition: opacity 0.5s ease;
+    }
+
+    .box:hover::before {
+      opacity: 0.25;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      color: #00f0ff;
+      margin-bottom: 15px;
+      text-shadow: 0 0 8px #00f0ff, 0 0 20px #ff3ec1;
+    }
+
+    p {
+      color: #aaa;
+      font-size: 1.1rem;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .drive-btn {
+      position: relative;
+      background: #0c0c0c;
+      border: 1px solid #00f0ff;
+      color: #00f0ff;
+      padding: 12px 22px;
+      border-radius: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+
+    .drive-btn:hover {
+      color: #0c0c0c;
+      background: linear-gradient(90deg, #00f0ff, #ff3ec1);
+      box-shadow: 0 8px 25px rgba(0,255,255,0.6), 0 4px 15px rgba(255,62,193,0.5);
+      transform: translateY(-2px) scale(1.05);
+    }
+
+    .small {
+      color: #888;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Payment Successful ✅</h1>
+    <p>Thank you for purchasing the <strong>Advanced</strong> plan (₹999).</p>
+
+    <div id="links" class="links">
+      <!-- Replace these hrefs with real Google Drive links -->
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1mmNWXU52geX9IDvSaky979kerUXYP26T " target="_blank" rel="noopener">Open Drive Link 1</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1LljZEOq7pN3dPCHeTWSWZY0VsoNL-xO5" target="_blank" rel="noopener">Open Drive Link 2</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1wT71Sg_MvY_L2NRdeNd6dM8-8J9aRqJU " target="_blank" rel="noopener">Open Drive Link 3</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1qEF65utjenJYTHzmzY767-KujR1snmOb" target="_blank" rel="noopener">Open Drive Link 4</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1sWI2iGYFpO5fyIY-a5PxMk-7kVEBa4j7" target="_blank" rel="noopener">Open Drive Link 5</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1ev4YgEAw55izgE5mO6NTe0fswrrQTTva " target="_blank" rel="noopener">Open Drive Link 6</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1NR5s--uOgAYpvursdFTe964cEu9rGMmB" target="_blank" rel="noopener">Open Drive Link 7</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1sezdPNNNGbjlTSaMYPg5-tsFYJnE2XKv " target="_blank" rel="noopener">Open Drive Link 8</a>
+      <a class="drive-btn" href="https://drive.google.com/drive/folders/1iRBiV54oYHEE-57Nzy2B5LMy9rGyt6P4  " target="_blank" rel="noopener">Open Drive Link 9</a>
+    </div>
+
+    <div class="small" id="paymentInfo">Checking payment info...</div>
+  </div>
+
+  <script>
+    function getQuery() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        payment_id: params.get('payment_id'),
+        plan: params.get('plan')
+      };
+    }
+
+    const q = getQuery();
+    const info = document.getElementById('paymentInfo');
+    if (q.payment_id) {
+      info.textContent = `Payment ID: ${q.payment_id} • Plan: ${q.plan || 'advanced'}`;
+    } else {
+      info.textContent = 'No payment id found in URL.';
+    }
+
+    // Replace placeholder hrefs with real links manually
+  </script>
+</body>
+</html>
