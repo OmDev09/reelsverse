@@ -1,5 +1,5 @@
 // ✅ payment.js — Handles Razorpay flow
-const SERVER_URL = "http://localhost:4000"; // ⚠️ Change to Render URL after deploy
+const SERVER_URL = "https://reelsverse-1.onrender.com"; // ⚠️ Change to Render URL after deploy
 
 export async function buyPlan(plan) {
   try {
