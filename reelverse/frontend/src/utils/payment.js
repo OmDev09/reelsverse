@@ -1,10 +1,8 @@
-// ✅ Corrected script.js for Reelverse
+// ✅ payment.js — Handles Razorpay flow
+const SERVER_URL = "http://localhost:4000"; // ⚠️ Change to Render URL after deploy
 
-const SERVER_URL = "http://localhost:3000"; // backend port
-
-async function buyPlan(plan) {
+export async function buyPlan(plan) {
   try {
-    // 1️⃣ Send the plan name to backend
     const res = await fetch(`${SERVER_URL}/create-order`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -14,22 +12,23 @@ async function buyPlan(plan) {
     if (!res.ok) throw new Error("Failed to create order");
 
     const data = await res.json();
-    console.log("CREATE ORDER RESPONSE:", data); // debug
+    console.log("CREATE ORDER RESPONSE:", data);
 
-    if (!data.orderId) return alert("Order creation failed!");
+    if (!data.orderId) {
+      alert("Order creation failed!");
+      return;
+    }
 
-    // 2️⃣ Razorpay options
     const options = {
-      key: data.key || "rzp_test_RViLiDuYLKnagX", // backend sends key_id
-      amount: data.amount, // already in paise
+      key: data.key || "rzp_test_RViLiDuYLKnagX",
+      amount: data.amount,
       currency: "INR",
       name: "Reelverse",
       description: `Payment for ${plan} plan`,
       order_id: data.orderId,
       handler: async function (response) {
-        console.log("RAZORPAY RESPONSE:", response); // debug
+        console.log("RAZORPAY RESPONSE:", response);
 
-        // 3️⃣ Verify payment on backend
         const verifyRes = await fetch(`${SERVER_URL}/verify-payment`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -41,10 +40,9 @@ async function buyPlan(plan) {
         });
 
         const verifyData = await verifyRes.json();
-        console.log("VERIFY RESPONSE:", verifyData); // debug
+        console.log("VERIFY RESPONSE:", verifyData);
 
         if (verifyData.success && verifyData.driveUrl) {
-          // Redirect to secure drive page
           window.location.href = verifyData.driveUrl;
         } else {
           alert(
@@ -56,7 +54,7 @@ async function buyPlan(plan) {
       theme: { color: "#007bff" },
     };
 
-    const rzp = new Razorpay(options);
+    const rzp = new window.Razorpay(options);
     rzp.open();
   } catch (error) {
     console.error("Payment error:", error);
