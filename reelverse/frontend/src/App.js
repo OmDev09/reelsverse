@@ -97,6 +97,14 @@ export default function App() {
           </motion.div>
         ))}
       </motion.div>
+
+      {/* ---- Policy Links Section ---- */}
+      <div className="policy-links" style={{ marginTop: "60px", textAlign: "center", zIndex: 5, position: "relative" }}>
+        <a href="/privacy" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>Privacy Policy</a>
+        <a href="/terms" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>Terms & Conditions</a>
+        <a href="/refunds" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>Refund Policy</a>
+        <a href="/contact" style={{ margin: "0 15px", color: "#fff", textDecoration: "none" }}>Contact Us</a>
+      </div>
     </div>
   );
 }

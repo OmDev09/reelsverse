@@ -1,13 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './styles.css';
 import App from './App';
+import PrivacyPolicy from "./pages/policies/PrivacyPolicy";
+import TermsAndConditions from "./pages/policies/TermsAndConditions";
+import RefundPolicy from "./pages/policies/RefundPolicy";
+import ContactUs from "./pages/policies/ContactUs";
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/refunds" element={<RefundPolicy />} />
+        <Route path="/contact" element={<ContactUs />} />
+      </Routes>
+    </Router>
   </React.StrictMode>
 );
 

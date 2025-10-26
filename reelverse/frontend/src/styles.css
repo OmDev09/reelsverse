@@ -190,6 +190,104 @@ button:hover {
   transform: translateY(-2px) scale(1.05);
 }
 
+/* ==== Policy Page Wrapper (Matches Landing Page) ==== */
+.policy-page {
+  font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
+  color: #f5f5f5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 80px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==== Animated Background Grid (like landing page) ==== */
+.policy-page::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(#ffffff1a 1px, transparent 3px) repeat;
+  background-size: 40px 40px;
+  animation: moveBg1 40s linear infinite;
+  z-index: 0;
+}
+
+/* ==== Container with Glassmorphism ==== */
+.policy-container {
+  max-width: 850px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 2.5rem;
+  border-radius: 25px;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+  z-index: 2;
+  position: relative;
+  text-align: left;
+}
+
+/* ==== Headings Gradient ==== */
+.policy-container h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, #f58529, #dd2a7b, #8134af, #515bd4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px #dd2a7b55, 0 0 25px #8134af33;
+}
+
+/* Subheadings */
+.policy-container h2 {
+  margin-top: 1.5rem;
+  font-size: 1.3rem;
+  color: #f9b24e;
+}
+
+/* Paragraphs and lists */
+.policy-container p,
+.policy-container li {
+  color: #ddd;
+  line-height: 1.8;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+/* Links inside policy */
+.policy-container a {
+  color: #dd2a7b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.policy-container a:hover {
+  color: #f58529;
+  text-decoration: underline;
+}
+
+/* Animated background keyframes (same as landing page) */
+@keyframes moveBg1 {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-200px, -200px); }
+}
+
+/* ==== Responsive ==== */
+@media (max-width: 900px) {
+  .policy-container {
+    padding: 1.8rem;
+  }
+  .policy-container h1 {
+    font-size: 1.8rem;
+  }
+}
+
 
 /* ==== Responsive ==== */
 @media (max-width: 900px) {
